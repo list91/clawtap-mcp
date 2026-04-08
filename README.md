@@ -1,48 +1,75 @@
-# ClawTap MCP
+<div align="center">
 
-BLE-to-USB HID keyboard bridge exposed as an [MCP](https://modelcontextprotocol.io/) server.
+<img src="logo.png" alt="ClawTap" width="180">
 
-**Send keystrokes to any computer via Bluetooth** — let AI assistants type on your machine through a hardware bridge.
+# ClawTap
 
-## Architecture
+**Wireless keyboard bridge — type on any computer from your phone or AI assistant**
+
+[![PyPI](https://img.shields.io/pypi/v/clawtap-mcp?color=orange&label=PyPI)](https://pypi.org/project/clawtap-mcp/)
+[![License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
+
+</div>
+
+---
+
+A tiny USB stick that receives text over Bluetooth and types it as a real USB keyboard. Works with Claude, any MCP-compatible AI, or any BLE app on your phone.
 
 ```
 Phone / AI  →  BLE  →  ClawTap  →  USB HID  →  💻
 ```
 
-## Prerequisites
-
-- **Bluetooth adapter** on the host machine (built-in or USB dongle)
-- **Python 3.10+**
-- **Hardware** (see below)
-
-## Install MCP Server
+## Quick Start
 
 ```bash
-# Claude Code / Claude Desktop
 claude mcp add clawtap -- uvx clawtap-mcp
+```
 
-# Or manually
+Or install manually:
+
+```bash
 pip install clawtap-mcp
 ```
 
 ## MCP Tools
 
-| Tool | Description |
+| Tool | What it does |
 |------|-------------|
-| `type_text` | Type ASCII text as HID keystrokes |
-| `press_key` | Press a special key (enter, escape, f1-f12, arrows, etc.) |
-| `combo_keys` | Press a key combination up to 5 keys (ctrl+c, alt+tab, win+r) |
-| `health_check` | Check BLE connection status and device availability |
+| `type_text(text)` | Type text as keystrokes. Supports ASCII + Cyrillic |
+| `press_key(key, count)` | Press a special key: `enter`, `escape`, `backspace`, `f1`–`f12`, arrows |
+| `combo_keys(keys)` | Key combo up to 5 keys: `["ctrl","c"]`, `["alt","tab"]`, `["win","r"]` |
+| `health_check()` | Check wireless connection and device status |
+
+### Examples
+
+```python
+# Type text
+type_text("Hello World!\n")
+
+# Cyrillic (target must have RU layout active)
+type_text("Привет мир")
+
+# Key combos
+combo_keys(["ctrl", "c"])      # Copy
+combo_keys(["alt", "tab"])     # Switch window
+combo_keys(["win", "r"])       # Run dialog
+
+# Special keys
+press_key("backspace", 5)      # Delete 5 chars
+press_key("enter")
+```
 
 ## Troubleshooting
 
-| Problem | Solution |
-|---------|----------|
-| `ClawTap not found` | Ensure device is powered and not connected to another BLE client. Press RESET on device. |
-| Text appears as wrong characters | Switch keyboard layout on target computer (e.g. EN for English text) |
-| BLE disconnects frequently | Keep device within 10m range. Check power supply stability. |
+| Problem | Fix |
+|---------|-----|
+| Device not found | Power cycle device. Make sure no other app is connected to it |
+| Wrong characters | Check keyboard layout on target computer (EN for English, RU for Cyrillic) |
+| Disconnects | Stay within 10m. Check USB power stability |
 
 ## License
 
 MIT
+
+---
+
