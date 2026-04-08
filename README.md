@@ -2,7 +2,6 @@
 
 <img src="logo.png" alt="ClawTap" width="180">
 
-# ClawTap
 
 **Wireless keyboard bridge — type on any computer from your phone or AI assistant**
 
