@@ -104,7 +104,7 @@ class BLEThread:
             logger.info("Scanning for ClawTap...")
             devices = await BleakScanner.discover(timeout=10.0)
             for d in devices:
-                if d.name and "clawtap" in d.name.lower():
+                if d.name and (d.name.lower() == "clawtap"):
                     logger.info(f"Found: {d.name} @ {d.address}")
                     self._address = d.address
                     return d.address
