@@ -6,6 +6,7 @@
 **Wireless keyboard bridge — type on any computer from your phone or AI assistant**
 
 [![PyPI](https://img.shields.io/pypi/v/clawtap-mcp?color=orange&label=PyPI)](https://pypi.org/project/clawtap-mcp/)
+[![tests](https://github.com/list91/clawtap-mcp/actions/workflows/test.yml/badge.svg)](https://github.com/list91/clawtap-mcp/actions/workflows/test.yml)
 [![License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
 
 </div>
