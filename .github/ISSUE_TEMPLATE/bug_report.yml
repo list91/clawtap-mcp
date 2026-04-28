@@ -1,0 +1,50 @@
+name: Bug report
+description: Something broke or behaves unexpectedly.
+labels: ["bug"]
+body:
+  - type: textarea
+    id: what-happened
+    attributes:
+      label: What happened?
+      description: Steps to reproduce, what you expected, what you got.
+      placeholder: |
+        1. `type_text("...")`
+        2. Expected: ...
+        3. Got: ...
+    validations:
+      required: true
+
+  - type: input
+    id: python-version
+    attributes:
+      label: Python version
+      placeholder: "3.11.6"
+    validations:
+      required: true
+
+  - type: dropdown
+    id: os
+    attributes:
+      label: Operating system
+      options:
+        - Windows
+        - macOS
+        - Linux
+        - Other
+    validations:
+      required: true
+
+  - type: input
+    id: install-method
+    attributes:
+      label: How did you install clawtap-mcp?
+      placeholder: "uvx clawtap-mcp / pip install / source checkout"
+    validations:
+      required: true
+
+  - type: textarea
+    id: logs
+    attributes:
+      label: Logs / stack trace
+      description: Output from the `clawtap` logger or any traceback.
+      render: shell
