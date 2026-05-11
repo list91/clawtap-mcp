@@ -1,7 +1,7 @@
 [project]
 name = "clawtap-mcp"
-version = "1.0.0"
-description = "BLE-to-USB HID wireless keyboard bridge as MCP server "
+version = "1.1.0"
+description = "BLE-to-USB HID wireless keyboard bridge as MCP server"
 readme = "README.md"
 license = "MIT"
 requires-python = ">=3.10"
