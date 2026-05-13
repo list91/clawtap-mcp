@@ -1,18 +1,20 @@
 """ClawTap MCP Server — BLE-to-USB HID keyboard bridge."""
 
+from __future__ import annotations
+
 import asyncio
 import logging
 import threading
-from concurrent.futures import Future
+from typing import Any, Awaitable
 
 from mcp.server.fastmcp import FastMCP
 
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger("clawtap")
 
-RX_UUID = "6e400002-b5a3-f393-e0a9-e50e24dcca9e"
-DEVICE_NAME = "ClawTap"
-BLE_MTU = 20
+RX_UUID: str = "6e400002-b5a3-f393-e0a9-e50e24dcca9e"
+DEVICE_NAME: str = "ClawTap"
+BLE_MTU: int = 20
 
 SPECIAL_KEYS = {
     "enter": 0xB0, "return": 0xB0,
@@ -82,18 +84,20 @@ class BLEThread:
         self._address: str | None = None
         self._lock = threading.Lock()
 
-    def start(self):
+    def start(self) -> None:
         self._loop = asyncio.new_event_loop()
         self._thread = threading.Thread(target=self._run_loop, daemon=True)
         self._thread.start()
 
-    def _run_loop(self):
+    def _run_loop(self) -> None:
+        assert self._loop is not None
         asyncio.set_event_loop(self._loop)
         self._loop.run_forever()
 
-    def _run_coro(self, coro, timeout=30):
+    def _run_coro(self, coro: Awaitable[Any], timeout: float = 30.0) -> Any:
         if not self._loop:
             self.start()
+        assert self._loop is not None
         future = asyncio.run_coroutine_threadsafe(coro, self._loop)
         return future.result(timeout=timeout)
 
@@ -137,7 +141,7 @@ class BLEThread:
             self._client = None
             return False
 
-    def disconnect(self):
+    def disconnect(self) -> None:
         if self._client:
             async def _disconnect():
                 if self._client.is_connected:
